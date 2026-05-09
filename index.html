@@ -23,19 +23,17 @@
       --radius-lg: 12px;
     }
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #1a1a1a;
-        --bg-secondary: #242424;
-        --text: #e8e8e8;
-        --text-muted: #999;
-        --border: rgba(255,255,255,0.12);
-        --border-hover: rgba(255,255,255,0.25);
-        --accent: #5BA3E0;
-        --accent-bg: #0c2a45;
-        --accent-border: #1a4a72;
-        --accent-text: #90c4f0;
-      }
+    body.dark {
+      --bg: #1a1a1a;
+      --bg-secondary: #242424;
+      --text: #e8e8e8;
+      --text-muted: #999;
+      --border: rgba(255,255,255,0.12);
+      --border-hover: rgba(255,255,255,0.25);
+      --accent: #5BA3E0;
+      --accent-bg: #0c2a45;
+      --accent-border: #1a4a72;
+      --accent-text: #90c4f0;
     }
 
     body {
@@ -56,10 +54,8 @@
 
     .avatar {
       width: 54px; height: 54px; border-radius: 50%;
-      background: var(--accent-bg); border: 0.5px solid var(--accent-border);
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 500; font-size: 16px; color: var(--accent-text);
-      flex-shrink: 0;
+      border: 0.5px solid var(--accent-border);
+      object-fit: cover; flex-shrink: 0;
     }
 
     h1 { font-size: 26px; font-weight: 500; margin-bottom: 2px; }
@@ -147,13 +143,18 @@
     .proj-links i { font-size: 14px; }
 
     /* ── Quotes ── */
-    .quote-block {
-      border-left: 2px solid var(--border-hover);
-      padding: 0.7rem 1rem; margin: 1.2rem 0;
-      color: var(--text-muted); font-size: 14px;
-      font-style: italic; line-height: 1.7;
-      border-radius: 0;
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      position: fixed; top: 1.2rem; right: 1.2rem;
+      background: var(--bg-secondary);
+      border: 0.5px solid var(--border);
+      border-radius: 20px; padding: 5px 12px;
+      font-size: 13px; color: var(--text-muted);
+      cursor: pointer; display: flex; align-items: center; gap: 6px;
+      transition: border-color 0.15s, color 0.15s;
+      z-index: 999;
     }
+    .theme-toggle:hover { border-color: var(--border-hover); color: var(--text); }
 
     /* ── Contact ── */
     .contact-row {
@@ -165,16 +166,21 @@
 </head>
 <body>
 
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" onclick="document.body.classList.toggle('dark')" title="Toggle theme">
+    <i class="ti ti-sun-moon"></i> Theme
+  </button>
+
   <!-- Header -->
   <div class="header">
     <img class="avatar" src="HASH.jpeg" alt="Abdul Hashim S." />
     <div>
       <h1>Abdul Hashim S.</h1>
-      <div class="role">AI Engineer &amp; Data Scientist · Chennai, India</div>
+      <div class="role">AI Engineer· Chennai, India</div>
       <div class="header-links">
         <a href="https://linkedin.com/in/hashim-10lm" target="_blank">
           <i class="ti ti-brand-linkedin"></i> LinkedIn
-
+        </a>
         <a href="https://github.com/HashimmS" target="_blank">
           <i class="ti ti-brand-github"></i> GitHub
         </a>
@@ -225,6 +231,21 @@
       <span class="tag">Power BI</span>
       <span class="tag">Excel</span>
     </div>
+        <div class="skill-group">
+      <div class="skill-label">APIs &amp; Frameworks</div>
+      <span class="tag">FastAPI</span>
+      <span class="tag">REST API</span>
+      <span class="tag">Flask</span>
+      <span class="tag">Streamlit</span>
+    </div>
+    <div class="skill-group">
+      <div class="skill-label">Deployment &amp; DevOps</div>
+      <span class="tag">Docker</span>
+      <span class="tag">Vercel</span>
+      <span class="tag">GitHub Actions</span>
+      <span class="tag">Google Colab</span>
+    </div>
+
 
     <div class="skill-group">
       <div class="skill-label">Tools</div>
@@ -245,7 +266,7 @@
     <div class="project-card">
       <div class="proj-title">
         Hybrid Meta-Ensemble Framework for Road Accident Risk Prediction
-        <span class="badge">IEEE Published</span>
+        <a href="https://ieeexplore.ieee.org/document/11453859" target="_blank" class="badge" style="text-decoration:none">IEEE Published ↗</a>
       </div>
       <div class="proj-desc">
         Built a stacking ensemble combining FT-Transformer, Random Forest, and XGBoost with a Logistic
@@ -264,7 +285,6 @@
         </a>
       </div>
     </div>
-
 
     <div class="project-card">
       <div class="proj-title">AI-Based Crop Yield Prediction System</div>
@@ -325,16 +345,11 @@
 
   <hr />
 
-  <!-- Quotes -->
+  <!-- Quote -->
   <section>
-    <h2><i class="ti ti-quote"></i> What drives me</h2>
-    <div class="quote-block">
-      "The goal is to turn data into information, and information into insight." — Carly Fiorina
-    </div>
-    <div class="quote-block">
-      I believe the most valuable models are not just accurate — they're explainable.
-      Building AI that people can trust and act on is what I work toward every day.
-    </div>
+    <p style="font-size:14px;color:var(--text-muted);font-style:italic;line-height:1.7;border-left:2px solid var(--border-hover);padding:0.6rem 1rem">
+      AI isn't just about automation — it's about augmenting human intelligence to make better decisions, faster.
+    </p>
   </section>
 
   <hr />
@@ -356,7 +371,7 @@
     </div>
     <div class="contact-row">
       <i class="ti ti-map-pin"></i>
-      <span>Chennai, Tamil Nadu, India</span>
+      <span>Cuddalore, Tamil Nadu, India</span>
     </div>
   </section>
 
